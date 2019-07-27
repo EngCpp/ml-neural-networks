@@ -1,0 +1,13 @@
+horror
+action
+super heroes
+animation
+comedy
+romance
+thriller
+war
+cop
+crime
+historical
+adventure
+musical

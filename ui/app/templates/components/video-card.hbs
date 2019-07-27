@@ -1,0 +1,6 @@
+<img src="{{apiDomain}}/images/{{film.image}}" class="video-thumbnail" alt="thumbnail"><br>
+<div class="video-title">{{film.name}}</div>
+{{film.views}} views<br>
+{{#each film.categories as |cat|}}
+  <i>{{cat.name}}</i>
+{{/each}}
