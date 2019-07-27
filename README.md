@@ -1,6 +1,6 @@
 # ml-recommender-system
 
-```Application that suggests 10 films based on the user's history```
+```Application that suggests 10 films based on the user's preferences```
 
 The application uses the categories as parameters which doesn't give a lot of precision.. 
 
