@@ -7,12 +7,11 @@ import com.engcpp.model.entities.Category;
 import com.engcpp.model.entities.CustomerPreferences;
 import com.engcpp.model.entities.Film;
 import com.engcpp.utils.Matrix;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 /**
  *
  * @author engcpp
@@ -30,39 +29,32 @@ public class RecommenderService {
     
     public List<Film>gerRecommendation(long customerId) {      
         // Extract views per category 
-        List<Category>categories = categoryDao.findAll();
-        List<Film>films = filmDao.findAll();
+        final List<Category>categories = categoryDao.findAll();
+        final List<Film>films = filmDao.findAll();
                 
         final Matrix customerPrefs = getCustomerPreferences(customerId, categories);
         final Matrix filmsParams = getFilmParams(films, categories);
         
         // Calculate film ratings
-        Matrix filmRatings = filmsParams.multiply(customerPrefs);
+        final Matrix filmRatings = filmsParams.multiply(customerPrefs);
         
-        for (int i=0; i<films.size(); i++) {
-            films.get(i)
-                 .withRating(filmRatings.get(i, 0));
-        }
+        for (int i=0; i<films.size(); i++)
+            films.get(i).withRating(filmRatings.get(i, 0));        
         
-        films = films.stream()
-            .sorted(Comparator.comparing(Film::getRating).reversed())
-            .limit(10)
-            .collect(Collectors.toList());            
-        
-        return films;
+        return films.stream()
+                    .sorted(comparing(Film::getRating).reversed())
+                    .limit(10)
+                    .collect(toList()); 
     }   
-    
-    
+        
     private Matrix getFilmParams(List<Film>films, List<Category>categories) {
         double filmsData[][] = new double[films.size()][categories.size()];
         
-        for (int f=0; f<films.size(); f++) {
-            for (int c=0; c<categories.size(); c++) {         
-                filmsData[f][c] = 
-                films.get(f).getCategories().contains(categories.get(c)) ? 
-                    1 : 0;
-            }
-        }   
+        for (int f = 0; f < films.size(); f++)
+            for (int c = 0; c < categories.size(); c++)
+                filmsData[f][c] = films.get(f)
+                                       .getCategories()
+                                       .contains(categories.get(c)) ? 1 : 0;
         
         return new Matrix(filmsData);    
     }    
@@ -72,13 +64,11 @@ public class RecommenderService {
         double categoriesData[] = new double[categories.size()];
         List<CustomerPreferences> preferences = customerPreferencesDao.findByCustomerId(customerId);   
         
-        for (CustomerPreferences preference : preferences) {
-            for (int c=0; c<categories.size(); c++) {                         
+        for (CustomerPreferences preference : preferences)
+            for (int c = 0; c < categories.size(); c++)                        
                 categoriesData[c] += (preferences != null && 
                     preference.getCategories().contains(categories.get(c)))
-                  ? 1 : 0;
-            }                                
-        }        
+                     ? 1 : 0;
         
         return new Matrix(categoriesData);    
     }

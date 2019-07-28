@@ -11,3 +11,10 @@ crime
 historical
 adventure
 musical
+sci-fi
+family
+western
+fight
+drama
+disaster
+fantasy

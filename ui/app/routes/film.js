@@ -8,7 +8,8 @@ export default Route.extend({
     }
   },
 
-  deactivate(){
+  beforeModel() {
       this.store.unloadAll('recommendation');
+      this.store.unloadAll('film');
   }
 });

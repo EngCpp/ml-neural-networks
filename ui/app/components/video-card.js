@@ -7,8 +7,8 @@ export default Component.extend({
   router: inject(),
   config: inject(),
 
-  apiDomain:  computed('config', function(){
-    return this.get("config").getAPIDomain();
+  domain:  computed('config', function(){
+    return this.get("config").getDomain();
   }),
 
   click() {
