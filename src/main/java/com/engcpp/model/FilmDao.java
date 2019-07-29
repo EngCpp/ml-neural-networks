@@ -11,15 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FilmDao extends AbstractDao<Film> {
     public Film findById(long filmId) {
-        String hql = "select o from Film o where o.id = :id";
+        final String hql = "select o from Film o where o.id = :id";
         
         List<Film> films = em.createQuery(hql)
           .setParameter("id", filmId)
           .getResultList();
         
-        if (films == null || films.size() < 1)
-            return null;
-        
-        return films.get(0);
+        return (films != null || films.size() > 0) ? films.get(0) : null;
     }
 }

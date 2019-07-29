@@ -20,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class Application {
     
-    
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

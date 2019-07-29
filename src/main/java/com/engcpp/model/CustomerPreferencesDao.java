@@ -19,7 +19,7 @@ public class CustomerPreferencesDao extends AbstractDao<CustomerPreferences> {
                                  + "where o.customerId = :customerId "
                                  + "order by o.id desc");
         qry.setParameter("customerId", customerId);
-        qry.setMaxResults(3);
+        qry.setMaxResults(2);
         
         return qry.getResultList();
     }
