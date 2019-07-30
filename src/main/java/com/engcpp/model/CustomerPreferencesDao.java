@@ -13,13 +13,15 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CustomerPreferencesDao extends AbstractDao<CustomerPreferences> {
+    private final int PAST_PREFERENCES = 2;
     
     public List<CustomerPreferences> findByCustomerId(long customerId){
+        
         Query qry = em.createQuery("select o from CustomerPreferences o "
                                  + "where o.customerId = :customerId "
                                  + "order by o.id desc");
         qry.setParameter("customerId", customerId);
-        qry.setMaxResults(2);
+        qry.setMaxResults(PAST_PREFERENCES);
         
         return qry.getResultList();
     }

@@ -503,7 +503,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "R6hWQ7t0", "block": "{\"symbols\":[],\"statements\":[[7,\"h2\"],[9],[0,\"FILMS AVAILABLE\"],[10],[0,\"\\n\"],[1,[27,\"video-list\",null,[[\"title\",\"data\"],[\"Available films\",[22,0,[\"model\"]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ui/templates/home.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "OvDc1OPx", "block": "{\"symbols\":[],\"statements\":[[1,[27,\"video-list\",null,[[\"title\",\"data\"],[\"AVAILABLE FILMS\",[22,0,[\"model\"]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ui/templates/home.hbs" } });
 });
 ;
 

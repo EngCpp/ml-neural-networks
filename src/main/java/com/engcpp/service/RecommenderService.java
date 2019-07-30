@@ -60,15 +60,22 @@ public class RecommenderService {
     }    
     
     private Matrix getCustomerPreferences(long customerId, List<Category>categories) {
-        // Extract views per category         
+        // Extract views per category                 
         double categoriesData[] = new double[categories.size()];
-        List<CustomerPreferences> preferences = customerPreferencesDao.findByCustomerId(customerId);   
+        List<CustomerPreferences> preferences = customerPreferencesDao
+                .findByCustomerId(customerId);   
         
-        for (CustomerPreferences preference : preferences)
+        // PAST Preferences should have less weght
+        final double DECREMENT = 1d / preferences.size();
+        double weight = 1;
+        
+        for (CustomerPreferences preference : preferences) {            
             for (int c = 0; c < categories.size(); c++)                        
                 categoriesData[c] += (preferences != null && 
                     preference.getCategories().contains(categories.get(c)))
-                     ? 1 : 0;
+                     ? weight : 0;
+            weight -= DECREMENT;
+        }
         
         return new Matrix(categoriesData);    
     }
